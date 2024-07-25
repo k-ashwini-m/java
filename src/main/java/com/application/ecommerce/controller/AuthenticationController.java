@@ -34,7 +34,7 @@ public class AuthenticationController {
 	
 	@PostMapping("/singin")
 	public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest singInRequest){
-		System.out.println("came here working this");
+		System.out.println("************* came here working this ******");
 		return ResponseEntity.ok(authenticationService.signin(singInRequest));
 	}
 	

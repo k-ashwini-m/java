@@ -1,14 +1,15 @@
 package com.application.ecommerce.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.ecommerce.entities.Category;
 import com.application.ecommerce.entities.Product;
 import com.application.ecommerce.repository.CreateProductRepository;
 import com.application.ecommerce.service.CreateProductService;
 
+@Service
 public class CreateProductServiceImpl implements CreateProductService {
 	CreateProductRepository createProductRepository;
 	
