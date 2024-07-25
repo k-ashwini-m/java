@@ -2,7 +2,7 @@ package com.application.ecommerce.service;
 
 import java.util.List;
 
-import com.application.ecommerce.model.CloudVendor;
+import com.application.ecommerce.entities.CloudVendor;
 
 public interface CloudvendorService {
 	public String createCloudVendor(CloudVendor cloudVendor);

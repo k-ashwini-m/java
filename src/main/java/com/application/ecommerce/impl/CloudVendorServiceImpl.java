@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.application.ecommerce.entities.CloudVendor;
 import com.application.ecommerce.exception.CloundVendorNotFoundException;
-import com.application.ecommerce.model.CloudVendor;
 import com.application.ecommerce.repository.CloudVendorRepository;
 import com.application.ecommerce.service.CloudvendorService;
 
