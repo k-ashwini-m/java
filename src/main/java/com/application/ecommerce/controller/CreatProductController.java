@@ -1,8 +1,10 @@
 package com.application.ecommerce.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,52 +16,56 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.application.ecommerce.entities.Category;
 import com.application.ecommerce.entities.Product;
-import com.application.ecommerce.service.CreateProductService;
+import com.application.ecommerce.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/admin/product")
 @RequiredArgsConstructor
-public class ProductController {
+public class CreatProductController {
 	
-	private final CreateProductService createProductService;
+	private final ProductService productService;
 	
 	@Autowired
-    public ProductController(CreateProductService createProductService) {
-        this.createProductService = createProductService;
+    public CreatProductController(ProductService productService) {
+        this.productService = productService;
     }
 	
 	@PostMapping("/create")
 	public Product createProduct(@RequestBody Product product) {
-		System.out.println("product"+product);
-		return createProductService.createProduct(product);
+		return productService.createProduct(product);
 	}
 	
 	@PutMapping("/update")
 	public Product updateProduct(@RequestBody Product product) {
-		return createProductService.updateProduct(product);
+		return productService.updateProduct(product);
 	}
 	
 	@DeleteMapping("/delete/{productId}")
 	public String deleteProduct(@PathVariable("productId") Long productId) {
-		createProductService.deleteProduct(productId);
+		productService.deleteProduct(productId);
 		return "Deleted Succefully";
 	}
 	
-	@GetMapping("{productId}")
-	public Product getProduct(@PathVariable("productId") Long productId) {
-		return createProductService.getProduct(productId);
+	@GetMapping("/{productId}")
+	public ResponseEntity<Product> getProduct(@PathVariable("productId") Long productId) {
+		Optional<Product> product = productService.getProduct(productId);
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 	}
 	
-	@GetMapping("{category}")
-	public List<Product> getProductByCategory(Category category) {
-		return createProductService.getProductByCategory(category);
+	@GetMapping("/category/{category}")
+	public List<Product> getProductByCategory(@PathVariable Category category) {
+		return productService.getProductByCategory(category);
 	}
 	
 	@GetMapping()
 	public List<Product> getAllProduct() {
-		return createProductService.getAllProduct();
+		return productService.getAllProduct();
 	}
 	
 }
